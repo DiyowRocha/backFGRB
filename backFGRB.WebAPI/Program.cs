@@ -1,6 +1,8 @@
 using System.Text;
 using backFGRB.Application;
+using backFGRB.Application.Services.CurrentUser;
 using backFGRB.Infrastructure;
+using backFGRB.WebAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,6 +13,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddCors(options =>
 {
