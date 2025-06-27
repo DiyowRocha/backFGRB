@@ -6,4 +6,5 @@ namespace backFGRB.Infrastructure.Repositories.Users;
 public interface IUserRepository : IBaseRepository<User>
 {
     Task<User?> GetByEmailOrUserNameAsync(string email, string username);
+    Task<User?> GetByLoginAsync(string login);
 }

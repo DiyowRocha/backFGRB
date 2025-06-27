@@ -1,4 +1,5 @@
 
+using System.Text.Json;
 using AutoMapper;
 using backFGRB.Application.Services.CurrentRequestService;
 using backFGRB.Application.Services.CurrentUser;
@@ -42,14 +43,19 @@ public class UserService : IUserService
 
         await _userRepository.Add(user);
 
+        var auditData = _mapper.Map<UserAuditDto>(user);
+
         await _logService.RegisterAsync(new CreateLogDto
         {
             Action = "Create",
             Resource = "User",
             PerformedBy = userName,
             IpAddress = ipAddress,
-            DateAfter = "",
-            DateBefore = System.Text.Json.JsonSerializer.Serialize(user)
+            DataBefore = "",
+            DataAfter = JsonSerializer.Serialize(auditData, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            })
         });
 
         return _mapper.Map<UserViewModel>(user);

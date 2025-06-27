@@ -1,5 +1,6 @@
 using System.Text;
 using backFGRB.Application;
+using backFGRB.Application.Services.CurrentRequestService;
 using backFGRB.Application.Services.CurrentUser;
 using backFGRB.Infrastructure;
 using backFGRB.WebAPI.Services;
@@ -16,6 +17,7 @@ builder.Services.AddServices();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddScoped<ICurrentRequestService, CurrentRequestService>();
 
 builder.Services.AddCors(options =>
 {

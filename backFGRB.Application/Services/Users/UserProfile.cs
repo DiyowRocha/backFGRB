@@ -10,8 +10,9 @@ public class UserProfile : Profile
         CreateMap<CreateUserDto, User>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.PasswordHash, opt => opt.Ignore())
-            .ForMember(dest => dest.Active, opt => opt.Ignore());
+            .ForMember(dest => dest.Active, opt => opt.MapFrom(_ => true));
 
-        CreateMap<User, UserViewModel>();        
+        CreateMap<User, UserViewModel>();
+        CreateMap<User, UserAuditDto>();     
     }
 }

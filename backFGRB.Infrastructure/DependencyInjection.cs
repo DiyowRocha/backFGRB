@@ -1,4 +1,6 @@
 using backFGRB.Infrastructure.Context;
+using backFGRB.Infrastructure.Repositories.Logs;
+using backFGRB.Infrastructure.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,8 @@ public static class DependencyInjection
         => options.UseNpgsql(connectionString));
 
         //services.AddScoped<Interface, Service>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ILogRepository, LogRepository>();
         
         return services;
     }

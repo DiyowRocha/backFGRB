@@ -22,9 +22,9 @@ public class LogService : ILogService
         return _mapper.Map<IEnumerable<LogViewModel>>(logs);
     }
 
-    public async Task<IEnumerable<LogViewModel?>> GetLogByUserAsync(string user)
+    public async Task<IEnumerable<LogViewModel?>> GetLogByUserAsync(GetLogByUserDto dto)
     {
-        var logs = await _logRepository.GetByUser(user);
+        var logs = await _logRepository.GetByUser(dto.UserName);
         return _mapper.Map<IEnumerable<LogViewModel>>(logs);
     }
 

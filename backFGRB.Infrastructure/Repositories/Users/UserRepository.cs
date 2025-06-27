@@ -16,4 +16,10 @@ public class UserRepository : BaseRepository<User>, IUserRepository
         return await _context.Users
             .FirstOrDefaultAsync(u => u.Email == email || u.UserName == username);
     }
+
+    public async Task<User?> GetByLoginAsync(string login)
+    {
+        return await _context.Users
+            .FirstOrDefaultAsync(u => u.Email == login || u.UserName == login);
+    }
 }
