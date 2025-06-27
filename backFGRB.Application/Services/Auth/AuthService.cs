@@ -21,8 +21,15 @@ public class AuthService : IAuthService
 
     public async Task<AuthViewModel> LoginAsync(LoginDto dto)
     {
-        var user = await _userRepository.GetByLoginAsync(dto.Login);
-        if (user is null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
+        var user = await _userRepository.GetByStringAsync(dto.Login);
+
+        if (user is null)
+            throw new UnauthorizedAccessException("Invalid credentials.");
+
+        if (!user.Active)
+            throw new UnauthorizedAccessException("User is deactivated.");
+
+        if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
             throw new UnauthorizedAccessException("Invalid credentials.");
 
         var token = GenerateToken(user);

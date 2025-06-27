@@ -1,10 +1,12 @@
 using backFGRB.Application.Services.Logs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backFGRB.WebAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "Admin")]
 public class LogController : ControllerBase
 {
     private readonly ILogService _logService;

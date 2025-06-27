@@ -11,15 +11,12 @@ public class UserRepository : BaseRepository<User>, IUserRepository
     {
     }
 
-    public async Task<User?> GetByEmailOrUserNameAsync(string email, string username)
+    public async Task<User?> GetByStringAsync(string user)
     {
         return await _context.Users
-            .FirstOrDefaultAsync(u => u.Email == email || u.UserName == username);
-    }
-
-    public async Task<User?> GetByLoginAsync(string login)
-    {
-        return await _context.Users
-            .FirstOrDefaultAsync(u => u.Email == login || u.UserName == login);
+            .FirstOrDefaultAsync(u =>
+                u.Email == user ||
+                u.UserName == user ||
+                u.FullName.ToLower().Contains(user.ToLower()));
     }
 }
